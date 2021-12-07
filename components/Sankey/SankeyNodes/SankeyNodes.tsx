@@ -1,16 +1,16 @@
-import { SankeyNodeMinimal } from "d3-sankey";
-import { SankeyNode } from "./SankeyNode/SankeyNode";
+import { SankeyNodeMinimal } from 'd3-sankey';
+import { SankeyNode } from './SankeyNode/SankeyNode';
 
 interface Props {
-  nodes: SankeyNodeMinimal<{}, {}>[];
+    nodes: SankeyNodeMinimal<Record<string, never>, Record<string, never>>[];
 }
 
 export const SankeyNodes = ({ nodes }: Props) => {
-  return (
-    <g id="nodes">
-      {nodes.map((node: any, i) => (
-        <SankeyNode {...node} color={"red"} key={node.name + node.key} />
-      ))}
-    </g>
-  );
+    return (
+        <g id="nodes">
+            {nodes.map((node: any) => (
+                <SankeyNode {...node} color={node.nodeColor} key={node.name + node.key} />
+            ))}
+        </g>
+    );
 };
