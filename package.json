@@ -9,11 +9,16 @@
   },
   "dependencies": {
     "d3": "^7.2.0",
+    "d3-sankey": "^0.12.3",
+    "lodash": "^4.17.21",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/d3": "^7.1.0",
+    "@types/d3-sankey": "^0.11.2",
+    "@types/lodash": "^4.14.177",
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
     "autoprefixer": "^10.4.0",

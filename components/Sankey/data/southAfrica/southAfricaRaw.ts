@@ -1,5 +1,5 @@
-import { RawFlow } from "./../../../types/types";
-export const sankeyDataRaw: RawFlow[] = [
+import { RawFlow } from "../../../../types/types";
+export const southAfricaRaw: RawFlow[] = [
   {
     origin: "ZAF:2",
     dest: "ZAF:1",

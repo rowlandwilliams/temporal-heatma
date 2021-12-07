@@ -1,4 +1,4 @@
-import { sankeyDataRaw } from "./../data/sankeyDataRaw";
+import { Province, SankeyLinkObj } from "./../../../types/types";
 import { NodeObj, RawFlow } from "../../../types/types";
 
 // nodes
@@ -15,27 +15,35 @@ const getUniqueOriginsOrDestinations = (
 const getOriginsOrDestinationsWithNames = (
   uniqueOriginsOrDestinations: string[],
   identifier: string,
+  provinces: Province[],
   offset = 0
 ) => {
   return uniqueOriginsOrDestinations.map((originObj, i) => ({
     node: i + offset,
     name: originObj,
     key: identifier,
+    province: provinces.filter((province) => province.code === originObj)[0]
+      .name,
   }));
 };
 
 // get full node sets with unique id for each node on left or right of sankey
-export const getNodesFromRawData = (sankeyDataRaw: RawFlow[]) => {
+export const getNodesFromRawData = (
+  sankeyDataRaw: RawFlow[],
+  provinces: Province[]
+) => {
   const origins = getUniqueOriginsOrDestinations(sankeyDataRaw, "origin");
   const destinations = getUniqueOriginsOrDestinations(sankeyDataRaw, "dest");
 
   const originsWithNames = getOriginsOrDestinationsWithNames(
     origins as string[],
-    "origin"
+    "origin",
+    provinces
   );
   const destinationsWithNames = getOriginsOrDestinationsWithNames(
     destinations as string[],
     "dest",
+    provinces,
     originsWithNames.length
   );
 
@@ -61,7 +69,7 @@ export const getLinksFromRawData = (
   nodes: NodeObj[],
   sankeyDataRaw: RawFlow[]
 ) => {
-  const links = sankeyDataRaw.map((rawFlowObj) => ({
+  const links: SankeyLinkObj[] = sankeyDataRaw.map((rawFlowObj) => ({
     source: getSourceOrDestinationNode(nodes, rawFlowObj, "origin"),
     target: getSourceOrDestinationNode(nodes, rawFlowObj, "dest"),
     value: rawFlowObj.count,
@@ -69,8 +77,11 @@ export const getLinksFromRawData = (
   return links;
 };
 
-export const getSankeyDataFromRaw = (sankeyDataRaw: RawFlow[]) => {
-  const nodes = getNodesFromRawData(sankeyDataRaw);
+export const getSankeyDataFromRaw = (
+  sankeyDataRaw: RawFlow[],
+  provinces: Province[]
+) => {
+  const nodes = getNodesFromRawData(sankeyDataRaw, provinces);
   const links = getLinksFromRawData(nodes, sankeyDataRaw);
 
   const finalData = { nodes: nodes, links: links };
