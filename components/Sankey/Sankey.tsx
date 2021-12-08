@@ -34,7 +34,7 @@ const Sankey = () => {
     // generate nodes and links from data
     const { nodes, links } = getSankeyGenerator(parentWidth, parentHeight, sankeyData);
     return (
-        <div className="bg-gray-50 w-full h-screen" ref={parentRef}>
+        <div className="bg-gray-800 w-full h-screen" ref={parentRef}>
             <svg width={parentWidth} height={parentHeight}>
                 <g transform={`translate(${sankeyMargin.left}, ${sankeyMargin.top})`}>
                     <SankeyLinks links={links} />

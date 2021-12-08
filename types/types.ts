@@ -50,3 +50,12 @@ export interface RawData {
     nodes: NodeObj[];
     links: SankeyLinkObj[];
 }
+
+export interface NodeTooltip {
+    x: number;
+    y: number;
+    province: string;
+    nodeColor: string;
+    nodeSum: number;
+    nodePercentage: number;
+}

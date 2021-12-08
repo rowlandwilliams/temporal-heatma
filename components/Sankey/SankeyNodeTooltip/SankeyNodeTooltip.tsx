@@ -6,7 +6,7 @@ import { formatTooltipValue, getLeftValueBasedOnNodePosition } from './utils/uti
 export const SankeyNodeTooltip = () => {
     const { nodeIsHovered, nodeTooltipData } = useStore();
 
-    const { x, y, province, nodeColor, nodeSum } = nodeTooltipData;
+    const { x, y, province, nodeColor, nodeSum, nodePercentage } = nodeTooltipData;
 
     const getToOrFromIfNodeIsLeftOrRight = (xCoord: number) => {
         return xCoord > 0 ? 'TO' : 'FROM';
@@ -28,9 +28,19 @@ export const SankeyNodeTooltip = () => {
                 {province}
             </div>
             <div className="p-2 ">
-                <div className="text-2xs text-gray-500">TOTAL MIGRATION {direction}</div>
-                <div className="text-gray-700 text-base">
-                    {nodeSum && formatTooltipValue(nodeSum)}
+                <div className="flex items-end">
+                    <div className="text-gray-700 text-base mr-1">
+                        {nodeSum && formatTooltipValue(nodeSum)}
+                    </div>
+                    <div className="text-2xs text-gray-400">PEOPLE</div>
+                </div>
+                <div className="text-2xs text-gray-400">
+                    <div>
+                        MIGRATED {direction}{' '}
+                        <span className="text-gray-700">{province && province.toUpperCase()}</span>
+                    </div>
+                    <div>BETWEEN 2005 AND 2010</div>
+                    <div>ACCOUNTING FOR {nodePercentage}% OF TOTAL</div>
                 </div>
             </div>
         </div>

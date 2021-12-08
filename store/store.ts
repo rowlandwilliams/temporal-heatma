@@ -1,12 +1,5 @@
 import create from 'zustand';
-
-interface NodeTooltip {
-    x: number;
-    y: number;
-    province: string;
-    nodeColor: string;
-    nodeSum: number;
-}
+import { NodeTooltip } from '../types/types';
 
 interface SankeyState {
     nodeIsHovered: boolean;

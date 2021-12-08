@@ -9,9 +9,10 @@ interface Props {
     color: string;
     province: string;
     nodeSum: number;
+    nodePercentage: number;
 }
 
-export const SankeyNode = ({ x0, x1, y0, y1, color, province, nodeSum }: Props) => {
+export const SankeyNode = ({ x0, x1, y0, y1, color, province, nodeSum, nodePercentage }: Props) => {
     const { setNodeIsHovered, setNodeTooltipData } = useStore();
 
     const handleMouseEnter = () => {
@@ -22,6 +23,7 @@ export const SankeyNode = ({ x0, x1, y0, y1, color, province, nodeSum }: Props) 
             province: province,
             nodeColor: color,
             nodeSum: nodeSum,
+            nodePercentage: nodePercentage,
         });
     };
 
@@ -31,7 +33,11 @@ export const SankeyNode = ({ x0, x1, y0, y1, color, province, nodeSum }: Props) 
     const textYCoordY = (y1 as number) - midPointY;
 
     return (
-        <g className="relative">
+        <g
+            className="relative"
+            onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => setNodeIsHovered(false)}
+        >
             <rect
                 className="cursor-pointer"
                 x={x0}
@@ -39,15 +45,13 @@ export const SankeyNode = ({ x0, x1, y0, y1, color, province, nodeSum }: Props) 
                 width={(x1 as number) - (x0 as number)}
                 height={(y1 as number) - (y0 as number)}
                 fill={color}
-                onMouseEnter={() => handleMouseEnter()}
-                onMouseLeave={() => setNodeIsHovered(false)}
             ></rect>
             <text
                 x={textCoordX}
                 y={textYCoordY}
                 dominantBaseline="middle"
                 textAnchor="middle"
-                className="text-2xs fill-current text-gray-50"
+                className="text-2xs fill-current text-gray-50 cursor-pointer"
             >
                 {province}
             </text>

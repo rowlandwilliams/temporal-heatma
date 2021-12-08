@@ -3,22 +3,34 @@ import { NodeObj, RawFlow } from '../../../types/types';
 import colors from 'tailwindcss/colors';
 
 // nodes
+const getTotalDataCount = (sankeyDataRaw: RawFlow[]) => {
+    return sankeyDataRaw.map((flow) => flow.count).reduce((a, b) => a + b, 0);
+};
 
 // get all the unique nodes from raw data (origin or destination)
 const getUniqueOriginsOrDestinations = (sankeyDataRaw: RawFlow[], key: string) => {
     return [...new Set(sankeyDataRaw.map((rawFlowObj) => rawFlowObj[key]))];
 };
 
-const getNodeTotal = (sankeyDataRaw: RawFlow[], nodeName: string, identifier: string) => {
+const getNodeTotals = (
+    sankeyDataRaw: RawFlow[],
+    nodeName: string,
+    identifier: string,
+    totalDataCount: number,
+) => {
     // calculate total for the destination and source version of each node
 
     const relevantFlows = sankeyDataRaw
         .filter((flow: RawFlow) => flow[identifier] === nodeName)
         .map((flow) => flow.count);
 
-    const nodeTotal = relevantFlows.reduce((a, b) => a + b, 0);
+    const nDestinations = relevantFlows.length;
 
-    return nodeTotal;
+    const nodeSum = relevantFlows.reduce((a, b) => a + b, 0);
+
+    const nodePercentage = ((nodeSum / totalDataCount) * 100).toFixed(2);
+
+    return { nodeSum, nDestinations, nodePercentage };
 };
 
 // use unique nodes to get array of nodes object with name (for chart) and key (for sorting - left vs right side of sankey)
@@ -28,16 +40,29 @@ const getOriginsAndDestinationsWithNames = (
     provinces: Province[],
     nodeColors: NodeWithColor[],
     sankeyDataRaw: RawFlow[],
+    totalDataCount: number,
     offset = 0,
 ) => {
-    return uniqueOriginsOrDestinations.map((nodeObj, i) => ({
-        node: i + offset,
-        name: nodeObj,
-        key: identifier,
-        province: provinces.filter((province) => province.code === nodeObj)[0].name.toUpperCase(),
-        nodeColor: nodeColors.filter((colObj) => colObj.node === nodeObj)[0].color,
-        nodeSum: getNodeTotal(sankeyDataRaw, nodeObj, identifier),
-    }));
+    return uniqueOriginsOrDestinations.map((nodeObj, i) => {
+        const { nodeSum, nDestinations, nodePercentage } = getNodeTotals(
+            sankeyDataRaw,
+            nodeObj,
+            identifier,
+            totalDataCount,
+        );
+        return {
+            node: i + offset,
+            name: nodeObj,
+            key: identifier,
+            province: provinces
+                .filter((province) => province.code === nodeObj)[0]
+                .name.toUpperCase(),
+            nodeColor: nodeColors.filter((colObj) => colObj.node === nodeObj)[0].color,
+            nodeSum: nodeSum,
+            nDestinations: nDestinations,
+            nodePercentage: nodePercentage,
+        };
+    });
 };
 
 const badColors = ['warmGray', 'trueGray', 'gray', 'coolGray', 'blueGray', 'white', 'black'];
@@ -53,11 +78,14 @@ const getAllNodesWithColors = (origins: (string | number)[], destinations: (stri
         node: node,
         color: colors[colorKeys[i]][400],
     }));
+
     return nodesWithColors as NodeWithColor[];
 };
 
 // get full node sets with unique id for each node on left or right of sankey
 export const getNodesFromRawData = (sankeyDataRaw: RawFlow[], provinces: Province[]) => {
+    const totalDataCount = getTotalDataCount(sankeyDataRaw);
+
     const origins = getUniqueOriginsOrDestinations(sankeyDataRaw, 'origin');
     const destinations = getUniqueOriginsOrDestinations(sankeyDataRaw, 'dest');
 
@@ -69,6 +97,7 @@ export const getNodesFromRawData = (sankeyDataRaw: RawFlow[], provinces: Provinc
         provinces,
         nodeColors,
         sankeyDataRaw,
+        totalDataCount,
     );
 
     const destinationsWithNames = getOriginsAndDestinationsWithNames(
@@ -77,6 +106,7 @@ export const getNodesFromRawData = (sankeyDataRaw: RawFlow[], provinces: Provinc
         provinces,
         nodeColors,
         sankeyDataRaw,
+        totalDataCount,
         originsWithNames.length,
     );
 
