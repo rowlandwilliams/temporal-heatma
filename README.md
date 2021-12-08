@@ -1,4 +1,4 @@
-## [Sankey diagram of internal migration in South Africa from 2005 -](https://migration-sankey.vercel.app/)
+## [Sankey diagram of internal migration in South Africa from 2005 - 2016](https://migration-sankey.vercel.app/)
 
 Next.js + TypeScript, d3.js, TailwindCSS, zustand for state management
 
