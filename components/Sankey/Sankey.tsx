@@ -36,8 +36,8 @@ const Sankey = () => {
     const { nodes, links } = getSankeyGenerator(parentWidth, parentHeight, sankeyData);
 
     return (
-        <div className="relative flex-grow bg-green-200" ref={parentRef}>
-            <div className="bg-gray-50 w-full h-full">
+        <div className="relative flex-grow " ref={parentRef}>
+            <div className=" w-full h-full">
                 <SankeySvg links={links as TransformedLink[]} nodes={nodes} />
                 <SankeyNodeTooltip />
                 <SankeyLinkTooltip />

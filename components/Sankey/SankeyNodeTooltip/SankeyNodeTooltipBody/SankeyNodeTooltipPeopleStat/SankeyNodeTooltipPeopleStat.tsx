@@ -1,4 +1,4 @@
-import { formatTooltipValue } from './utils/utils';
+import { formatTooltipValue } from '../../../utils/general';
 
 interface Props {
     nodeSum: number;

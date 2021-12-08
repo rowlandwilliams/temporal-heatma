@@ -1,8 +1,8 @@
 import { sankey } from 'd3-sankey';
 import { RawData } from '../../../types/types';
 
-export const sankeyMargin = { top: 10, right: 96, bottom: 10, left: 96 };
-export const nodeWidth = 96;
+export const sankeyMargin = { top: 10, right: 112, bottom: 10, left: 112 };
+export const nodeWidth = 10;
 export const nodeTooltipPadding = 5;
 
 export const getSankeyGenerator = (

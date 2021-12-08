@@ -77,4 +77,5 @@ export interface LinkTooltip {
     y: number;
     sourceProvince: string;
     targetProvince: string;
+    linkValue: number;
 }

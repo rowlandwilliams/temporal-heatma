@@ -28,6 +28,7 @@ export const SankeyLink = ({ link }: Props) => {
             y: (link.y0 + (link.y1 - link.y0) / 2) as number,
             sourceProvince: source.province,
             targetProvince: target.province,
+            linkValue: link.value,
         });
     };
 
@@ -42,7 +43,8 @@ export const SankeyLink = ({ link }: Props) => {
             onMouseEnter={() => handleLinkEnter()}
             onMouseLeave={() => handlLinkLeave()}
             className={classNames('stroke-current cursor-pointer', {
-                'opacity-100': linkIsActive || thisLinkIsHovered,
+                'opacity-90': linkIsActive && thisLinkIsHovered,
+                'opacity-70': linkIsActive || thisLinkIsHovered,
                 'opacity-40': !nodesAreSelected && !linkIsActive,
                 'opacity-10': nodesAreSelected && !linkIsActive,
             })}

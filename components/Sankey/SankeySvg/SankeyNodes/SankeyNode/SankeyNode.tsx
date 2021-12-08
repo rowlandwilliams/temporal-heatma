@@ -14,6 +14,9 @@ interface Props {
     nodeIdKey: string;
 }
 
+const textXPadding = 10;
+const borderRectWidth = 2;
+
 export const SankeyNode = ({
     name,
     x0,
@@ -33,7 +36,7 @@ export const SankeyNode = ({
         useStore();
 
     const nodeIsActive = activeNodes.includes(nodeId);
-
+    const nodeIsDestination = (x0 as number) > 0;
     const handlNodeClick = () => {
         return nodeIsActive ? removeActiveNode(nodeId) : addActiveNode(nodeId);
     };
@@ -50,9 +53,10 @@ export const SankeyNode = ({
         });
     };
 
-    const midPointX = ((x1 as number) - (x0 as number)) / 2;
     const midPointY = ((y1 as number) - (y0 as number)) / 2;
-    const textCoordX = (x1 as number) - midPointX;
+    const textCoordX = nodeIsDestination
+        ? (x1 as number) + textXPadding
+        : (x0 as number) - textXPadding;
     const textYCoordY = (y1 as number) - midPointY;
 
     return (
@@ -63,22 +67,31 @@ export const SankeyNode = ({
             onClick={() => handlNodeClick()}
         >
             <rect
-                className={classNames('cursor-pointer stroke-current stroke-1 text-gray-300', {
-                    'text-gray-600': nodeIsActive,
+                className={classNames('cursor-pointer opacity-50', {
+                    'opacity-100': nodeIsActive,
                 })}
                 x={x0}
                 y={y0}
                 width={(x1 as number) - (x0 as number)}
                 height={(y1 as number) - (y0 as number)}
-                fill={nodeIsActive ? 'white' : '#F9FAFB'}
-                fillOpacity="0.5"
+                fill={color}
+                fillOpacity={nodeIsActive ? 1 : 0.5}
+            ></rect>
+            <rect
+                x={nodeIsDestination ? x0 : (x1 as number) - borderRectWidth}
+                y={y0}
+                width={borderRectWidth}
+                height={(y1 as number) - (y0 as number)}
+                className="fill-current text-gray-900"
             ></rect>
             <text
                 x={textCoordX}
                 y={textYCoordY}
                 dominantBaseline="middle"
-                textAnchor="middle"
-                className="text-2xs fill-current text-gray-700 cursor-pointer"
+                textAnchor={nodeIsDestination ? 'start' : 'end'}
+                className={classNames('text-2xs fill-current text-gray-50 cursor-pointer', {
+                    'text-opacity-60': !nodeIsActive,
+                })}
             >
                 {province}
             </text>
