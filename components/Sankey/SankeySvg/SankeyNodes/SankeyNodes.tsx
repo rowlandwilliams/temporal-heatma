@@ -9,7 +9,12 @@ export const SankeyNodes = ({ nodes }: Props) => {
     return (
         <g id="nodes">
             {nodes.map((node: any) => (
-                <SankeyNode {...node} color={node.nodeColor} key={node.name + node.key} />
+                <SankeyNode
+                    {...node}
+                    color={node.nodeColor}
+                    key={node.name + node.directionKey}
+                    nodeIdKey={node.directionKey}
+                />
             ))}
         </g>
     );

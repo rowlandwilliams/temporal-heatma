@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { southAfricaRaw } from './data/southAfrica/southAfricaRaw';
 import { getSankeyDataFromRaw } from './utils/data-processing';
 import { southAfricaProvinces } from './data/southAfrica/provinces';
-import { getSankeyGenerator, sankeyMargin } from './utils/plot';
+import { getSankeyGenerator } from './utils/plot';
 import { debounce } from 'lodash';
-import { SankeyLinks } from './SankeyLinks/SankeyLinks';
-import { SankeyNodes } from './SankeyNodes/SankeyNodes';
 import { SankeyNodeTooltip } from './SankeyNodeTooltip/SankeyNodeTooltip';
+import { TransformedLink } from '../../types/types';
+import { SankeySvg } from './SankeySvg/SankeySvg';
+import { SankeyLinkTooltip } from './SankeyLinkTooltip/SankeyLinkTooltip';
 
 const sankeyData = getSankeyDataFromRaw(southAfricaRaw, southAfricaProvinces);
 
@@ -33,15 +34,14 @@ const Sankey = () => {
 
     // generate nodes and links from data
     const { nodes, links } = getSankeyGenerator(parentWidth, parentHeight, sankeyData);
+
     return (
-        <div className="bg-gray-800 w-full h-screen" ref={parentRef}>
-            <svg width={parentWidth} height={parentHeight}>
-                <g transform={`translate(${sankeyMargin.left}, ${sankeyMargin.top})`}>
-                    <SankeyLinks links={links} />
-                    <SankeyNodes nodes={nodes} />
-                </g>
-            </svg>
-            <SankeyNodeTooltip />
+        <div className="relative flex-grow bg-green-200" ref={parentRef}>
+            <div className="bg-gray-50 w-full h-full">
+                <SankeySvg links={links as TransformedLink[]} nodes={nodes} />
+                <SankeyNodeTooltip />
+                <SankeyLinkTooltip />
+            </div>
         </div>
     );
 };

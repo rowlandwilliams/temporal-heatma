@@ -53,7 +53,7 @@ const getOriginsAndDestinationsWithNames = (
         return {
             node: i + offset,
             name: nodeObj,
-            key: identifier,
+            directionKey: identifier,
             province: provinces
                 .filter((province) => province.code === nodeObj)[0]
                 .name.toUpperCase(),
@@ -117,8 +117,14 @@ export const getNodesFromRawData = (sankeyDataRaw: RawFlow[], provinces: Provinc
 // links
 
 // get node for each raw flow based on which node is in source / destination keys
-const getSourceOrDestinationNode = (nodes: NodeObj[], rawFlowObj: RawFlow, key: string) => {
-    return nodes.filter((node) => node.name === rawFlowObj[key] && node.key === key)[0].node;
+const getSourceOrDestinationNode = (
+    nodes: NodeObj[],
+    rawFlowObj: RawFlow,
+    directionKey: string,
+) => {
+    return nodes.filter(
+        (node) => node.name === rawFlowObj[directionKey] && node.directionKey === directionKey,
+    )[0].node;
 };
 
 // get sankey ready link object with correct source / target node ids and corresponding value

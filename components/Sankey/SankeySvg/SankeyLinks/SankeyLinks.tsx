@@ -1,4 +1,5 @@
 import { SankeyLinkMinimal } from 'd3-sankey';
+import { TransformedLink } from '../../../../types/types';
 import { SankeyLink } from './SankeyLink/SankeyLink';
 
 interface Props {
@@ -9,7 +10,7 @@ export const SankeyLinks = ({ links }: Props) => {
     return (
         <g id="links">
             {links.map((link) => (
-                <SankeyLink link={link} color={'grey'} key={link.value} />
+                <SankeyLink link={link as TransformedLink} color={'grey'} key={link.value} />
             ))}
         </g>
     );

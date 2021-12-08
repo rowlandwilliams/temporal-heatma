@@ -13,14 +13,14 @@ export interface NodeWithColor {
 export interface NodeObj {
     node: number;
     name: string;
-    key: string;
+    directionKey: string;
 }
 
 export interface TransformedNode {
     depth: number;
     height: number;
     index: number;
-    key: string;
+    directionKey: string;
     layer: number;
     name: string;
     node: number;
@@ -58,4 +58,23 @@ export interface NodeTooltip {
     nodeColor: string;
     nodeSum: number;
     nodePercentage: number;
+}
+
+export interface TransformedLink {
+    index: number;
+    source: any;
+    target: any;
+    value: number;
+    width: number;
+    y0: number;
+    y1: number;
+    x0: number;
+    x1: number;
+}
+
+export interface LinkTooltip {
+    x: number;
+    y: number;
+    sourceProvince: string;
+    targetProvince: string;
 }
