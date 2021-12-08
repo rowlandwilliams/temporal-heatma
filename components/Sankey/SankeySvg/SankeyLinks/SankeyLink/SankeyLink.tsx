@@ -46,7 +46,7 @@ export const SankeyLink = ({ link }: Props) => {
                 'opacity-90': linkIsActive && thisLinkIsHovered,
                 'opacity-70': linkIsActive || thisLinkIsHovered,
                 'opacity-40': !nodesAreSelected && !linkIsActive,
-                'opacity-10': nodesAreSelected && !linkIsActive,
+                'opacity-5': nodesAreSelected && !linkIsActive,
             })}
             d={sankeyLinkHorizontal()(link) as string}
             style={{
