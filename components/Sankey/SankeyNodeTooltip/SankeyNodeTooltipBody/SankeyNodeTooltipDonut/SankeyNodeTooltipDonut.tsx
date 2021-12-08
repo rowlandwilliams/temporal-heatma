@@ -18,7 +18,7 @@ export const SankeyNodeTooltipDonut = ({ nodePercentage, nodeColor }: Props) => 
                     ></circle>
                     <circle
                         r="14"
-                        className="fill-current text-gray-50 transform translate-x-1/2 translate-y-1/2 opacity-50"
+                        className="fill-current text-gray-900 transform translate-x-1/2 translate-y-1/2 opacity-50"
                     ></circle>
                     <circle
                         className="fill-current text-transparent transform translate-x-1/2 translate-y-1/2"
@@ -31,10 +31,10 @@ export const SankeyNodeTooltipDonut = ({ nodePercentage, nodeColor }: Props) => 
                     ></circle>
                 </svg>
             </div>
-            <div className="ml-2 whitespace-nowrap">
+            <div className="ml-2 whitespace-nowrap text-gray-300">
                 <div>ACCOUNTING FOR</div>
                 <div>
-                    <span className="text-gray-700">{nodePercentage}</span>% OF
+                    <span className="text-gray-50">{nodePercentage}</span>% OF
                 </div>
                 <div>TOTAL INTERNAL MIGRATION</div>
             </div>

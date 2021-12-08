@@ -6,7 +6,7 @@ interface Props {
 export const SankeyNodeTooltipHeader = ({ provinceName, backgroundColor }: Props) => {
     return (
         <div
-            className="p-2 font-readexpro-medium text-gray-50"
+            className="p-2 font-readexpro-medium text-gray-900"
             style={{ backgroundColor: backgroundColor }}
         >
             {provinceName}

@@ -2,7 +2,7 @@ import { useStore } from '../../../store/store';
 import classNames from 'classnames';
 import { sankeyMargin } from '../utils/plot';
 import { getLeftValueBasedOnNodePosition } from './utils/utils';
-import { SankeyNodeTooltipHeader } from './SankeyNodeTooltipHeader/SankeyNodeTooltipHeader';
+import { SankeyNodeTooltipHeader } from './SankeyNodeTooltipBody/SankeyNodeTooltipHeader/SankeyNodeTooltipHeader';
 import { SankeyNodeTooltipBody } from './SankeyNodeTooltipBody/SankeyNodeTooltipBody';
 
 export const SankeyNodeTooltip = () => {
@@ -17,7 +17,7 @@ export const SankeyNodeTooltip = () => {
     const direction = getToOrFromIfNodeIsLeftOrRight(x);
     return (
         <div
-            className={classNames('absolute bg-white text-xs shadow-lg', {
+            className={classNames('absolute bg-gray-900 text-xs shadow-lg', {
                 hidden: !nodeIsHovered,
                 'transform -translate-x-full': x > 0,
             })}

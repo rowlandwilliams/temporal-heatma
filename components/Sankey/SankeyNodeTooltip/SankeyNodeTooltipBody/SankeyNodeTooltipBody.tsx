@@ -1,4 +1,4 @@
-import { SankeyNodeTooltipMigrationText } from '../SankeyNodeTooltipMigrationText/SankeyNodeTooltipMigrationText';
+import { SankeyNodeTooltipMigrationText } from './SankeyNodeTooltipMigrationText/SankeyNodeTooltipMigrationText';
 import { SankeyNodeTooltipPeopleStat } from './SankeyNodeTooltipPeopleStat/SankeyNodeTooltipPeopleStat';
 import { SankeyNodeTooltipDonut } from './SankeyNodeTooltipDonut/SankeyNodeTooltipDonut';
 
