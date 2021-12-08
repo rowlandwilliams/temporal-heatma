@@ -1,4 +1,3 @@
-import { numberWithCommas } from '../../utils/general';
 import { sankeyMargin, nodeTooltipPadding, nodeWidth } from './../../utils/plot';
 
 export const getLeftValueBasedOnNodePosition = (xCoord: number) => {
@@ -9,8 +8,4 @@ export const getLeftValueBasedOnNodePosition = (xCoord: number) => {
     return rightHandNode
         ? xWithMargin - nodeTooltipPadding
         : xWithMargin + nodeWidth + nodeTooltipPadding;
-};
-
-export const formatTooltipValue = (value: number) => {
-    return numberWithCommas(Math.floor(value)).replace('.00', '');
 };

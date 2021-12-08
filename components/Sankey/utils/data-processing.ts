@@ -28,7 +28,7 @@ const getNodeTotals = (
 
     const nodeSum = relevantFlows.reduce((a, b) => a + b, 0);
 
-    const nodePercentage = ((nodeSum / totalDataCount) * 100).toFixed(2);
+    const nodePercentage = (((nodeSum / totalDataCount) * 100) / 2).toFixed(2);
 
     return { nodeSum, nDestinations, nodePercentage };
 };
