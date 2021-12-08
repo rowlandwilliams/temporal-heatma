@@ -5,6 +5,7 @@ interface NodeTooltip {
     y: number;
     province: string;
     nodeColor: string;
+    nodeSum: number;
 }
 
 interface SankeyState {

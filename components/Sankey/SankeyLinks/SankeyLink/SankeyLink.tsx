@@ -7,7 +7,7 @@ interface Props {
 
 export const SankeyLink = ({ link }: Props) => (
     <path
-        className="opacity-30 hover:opacity-100 stroke-current text-purple-300"
+        className="opacity-30 hover:opacity-100 stroke-current text-gray-300 cursor-pointer"
         d={sankeyLinkHorizontal()(link) as string}
         style={{
             fill: 'none',

@@ -4,7 +4,7 @@ import Sankey from '../components/Sankey/Sankey';
 
 const Home: NextPage = () => {
     return (
-        <div className="bg-red-300">
+        <div className="bg-red-300 font-readexpro-regular">
             <Head>
                 <title>Sankey</title>
                 <meta name="description" content="Sankey" />

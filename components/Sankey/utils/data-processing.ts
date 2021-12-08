@@ -9,27 +9,46 @@ const getUniqueOriginsOrDestinations = (sankeyDataRaw: RawFlow[], key: string) =
     return [...new Set(sankeyDataRaw.map((rawFlowObj) => rawFlowObj[key]))];
 };
 
+const getNodeTotal = (sankeyDataRaw: RawFlow[], nodeName: string, identifier: string) => {
+    // calculate total for the destination and source version of each node
+
+    const relevantFlows = sankeyDataRaw
+        .filter((flow: RawFlow) => flow[identifier] === nodeName)
+        .map((flow) => flow.count);
+
+    const nodeTotal = relevantFlows.reduce((a, b) => a + b, 0);
+
+    return nodeTotal;
+};
+
 // use unique nodes to get array of nodes object with name (for chart) and key (for sorting - left vs right side of sankey)
 const getOriginsAndDestinationsWithNames = (
     uniqueOriginsOrDestinations: string[],
     identifier: string,
     provinces: Province[],
     nodeColors: NodeWithColor[],
+    sankeyDataRaw: RawFlow[],
     offset = 0,
 ) => {
-    return uniqueOriginsOrDestinations.map((originObj, i) => ({
+    return uniqueOriginsOrDestinations.map((nodeObj, i) => ({
         node: i + offset,
-        name: originObj,
+        name: nodeObj,
         key: identifier,
-        province: provinces.filter((province) => province.code === originObj)[0].name,
-        nodeColor: nodeColors.filter((colObj) => colObj.node === originObj)[0].color,
+        province: provinces.filter((province) => province.code === nodeObj)[0].name.toUpperCase(),
+        nodeColor: nodeColors.filter((colObj) => colObj.node === nodeObj)[0].color,
+        nodeSum: getNodeTotal(sankeyDataRaw, nodeObj, identifier),
     }));
 };
+
+const badColors = ['warmGray', 'trueGray', 'gray', 'coolGray', 'blueGray', 'white', 'black'];
 
 const getAllNodesWithColors = (origins: (string | number)[], destinations: (string | number)[]) => {
     const allNodes = [...new Set(origins.concat(destinations))];
 
-    const colorKeys = Object.keys(colors).filter((col) => col !== 'black' && col !== 'white');
+    const colorKeys = Object.keys(colors)
+        .filter((col) => !badColors.includes(col))
+        .reverse();
+
     const nodesWithColors = allNodes.map((node, i) => ({
         node: node,
         color: colors[colorKeys[i]][400],
@@ -49,6 +68,7 @@ export const getNodesFromRawData = (sankeyDataRaw: RawFlow[], provinces: Provinc
         'origin',
         provinces,
         nodeColors,
+        sankeyDataRaw,
     );
 
     const destinationsWithNames = getOriginsAndDestinationsWithNames(
@@ -56,6 +76,7 @@ export const getNodesFromRawData = (sankeyDataRaw: RawFlow[], provinces: Provinc
         'dest',
         provinces,
         nodeColors,
+        sankeyDataRaw,
         originsWithNames.length,
     );
 
