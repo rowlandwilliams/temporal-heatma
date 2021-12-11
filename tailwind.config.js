@@ -5,8 +5,7 @@ module.exports = {
         extend: {
             fontSize: { '2xs': '0.625rem' },
             fontFamily: {
-                'readexpro-regular': ['ReadexPro-Regular'],
-                'readexpro-medium': ['ReadexPro-Medium'],
+                // extent fonts here
             },
         },
     },

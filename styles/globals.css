@@ -3,19 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* add fonts here */
 @layer base {
-    @font-face {
-        font-family: 'ReadexPro-Regular';
-        src: url(../fonts/ReadexPro-Regular.ttf);
-    }
-
-    @font-face {
-        font-family: 'ReadexPro-Medium';
-        src: url(../fonts/ReadexPro-Medium.ttf);
-    }
+    /* @font-face {
+        font-family: 'Font-Name';
+        src: url(../fonts/Font-Name.ttf);
+    } */
 }
 
-html,
+/* html,
 body {
     padding: 0;
     margin: 0;
@@ -30,4 +26,4 @@ a {
 
 * {
     box-sizing: border-box;
-}
+} */
