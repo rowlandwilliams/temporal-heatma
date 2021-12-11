@@ -2,10 +2,11 @@
     "name": "sankey",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "concurrently -n NEXT,TS -c magenta,cyan \"next dev -p 3000\" \"npm run ts --watch\"",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "ts": "tsc --noEmit --incremental --preserveWatchOutput --pretty"
     },
     "dependencies": {
         "classnames": "^2.2.6",

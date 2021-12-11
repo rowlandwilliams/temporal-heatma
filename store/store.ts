@@ -1,38 +1,12 @@
 import create from 'zustand';
-import { LinkTooltip, NodeTooltip } from '../types/types';
 
-interface SankeyState {
-    nodeIsHovered: boolean;
-    setNodeIsHovered: (nodeIsHovered: boolean) => void;
-    linkIsHovered: boolean;
-    setLinkIsHovered: (nodeIsHovered: boolean) => void;
-    nodeTooltipData: NodeTooltip;
-    setNodeTooltipData: (nodeTooltipData: NodeTooltip) => void;
-    linkTooltipData: LinkTooltip;
-    setLinkTooltipData: (linkTooltipData: LinkTooltip) => void;
-    activeNodes: string[];
-    addActiveNode: (node: string) => void;
-    removeActiveNode: (node: string) => void;
+interface AppState {
+    sampleState: string;
+    setSampleState: (sampleState: string) => void;
+    suh: string;
 }
 
-export const useStore = create<SankeyState>((set) => ({
-    nodeIsHovered: false,
-    setNodeIsHovered: (nodeIsHovered: boolean) => set({ nodeIsHovered }),
-    linkIsHovered: false,
-    setLinkIsHovered: (linkIsHovered: boolean) => set({ linkIsHovered }),
-    nodeTooltipData: {} as NodeTooltip,
-    setNodeTooltipData: (nodeTooltipData: NodeTooltip) => set({ nodeTooltipData }),
-    linkTooltipData: {} as LinkTooltip,
-    setLinkTooltipData: (linkTooltipData: LinkTooltip) => set({ linkTooltipData }),
-    activeNodes: [],
-    addActiveNode: (node: string) => {
-        set((state) => ({
-            activeNodes: [...state.activeNodes, node],
-        }));
-    },
-    removeActiveNode: (node: string) => {
-        set((state) => ({
-            activeNodes: state.activeNodes.filter((nodeName) => nodeName !== node),
-        }));
-    },
+export const useStore = create<AppState>((set) => ({
+    sampleState: 'suh',
+    setSampleState: (sampleState: string) => set({ sampleState }),
 }));
