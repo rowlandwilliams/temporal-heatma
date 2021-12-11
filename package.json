@@ -11,13 +11,12 @@
     "dependencies": {
         "classnames": "^2.2.6",
         "d3": "^7.2.0",
-        "d3-sankey": "^0.12.3",
         "lodash": "^4.17.21",
         "next": "12.0.7",
         "react": "17.0.2",
         "react-dom": "17.0.2",
-        "zustand": "^3.6.7",
-        "tailwindcss": "^2.2.19"
+        "tailwindcss": "^2.2.19",
+        "zustand": "^3.6.7"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.14.1",
@@ -43,7 +42,7 @@
         "jest": "^27.4.3",
         "postcss": "^8.4.4",
         "prettier": "^2.3.2",
-        "typescript": "4.5.2",
+        "typescript": "^4.5.2",
         "webpack-livereload-plugin": "^3.0.2"
     }
 }
