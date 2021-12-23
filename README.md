@@ -1,3 +1,3 @@
 # Temporal heatmap visualisation
 
--   React + TypeScript, d3.js
+-   React + TypeScript (Next.js), d3.js
