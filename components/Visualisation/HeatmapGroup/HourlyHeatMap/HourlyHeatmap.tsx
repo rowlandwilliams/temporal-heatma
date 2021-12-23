@@ -15,7 +15,15 @@ interface Props {
 const nCellsPerRow = 6;
 const nCellsPerColumn = 10;
 
-export const HourGroup = ({ x, y, index, gridData, colorScale, rectWidth, widthScale }: Props) => {
+export const HourlyHeatmap = ({
+    x,
+    y,
+    index,
+    gridData,
+    colorScale,
+    rectWidth,
+    widthScale,
+}: Props) => {
     return (
         <g
             transform={`translate(${x}, ${y})`}

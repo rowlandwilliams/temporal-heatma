@@ -9,8 +9,9 @@ import {
 } from './utils/plot-utils';
 import { GraphHeader } from '../GraphHeader/GraphHeader';
 import { plotData } from './utils/data';
-import { HeatmapGroup } from './BubbleGroup/HeatmapGroup/HeatmapGroup';
-import { LineGraphGroup } from './LineGraphGroup/LineGraphGroup';
+import { Heatmap } from './HeatmapGroup/Heatmap';
+import { LineAndBarGraph } from './LineAndBarGraph/LineAndBarGraph';
+import { BubbleGroup } from './BubbleGroup/BubbleGroup';
 
 export const Visualisation = () => {
     const parentRef = useRef<HTMLDivElement>(null);
@@ -48,7 +49,7 @@ export const Visualisation = () => {
         <>
             <div
                 className={classNames(
-                    'h-full transition-all duration-1000 p-4 text-gray-50 font-inconsolata-regular',
+                    'h-full transition-all duration-1000 p-2 text-gray-50 font-inconsolata-regular',
                     { 'opacity-0': !isLoaded },
                 )}
             >
@@ -56,14 +57,14 @@ export const Visualisation = () => {
                     <GraphHeader headerName="Heatmap" />
                     <div className="flex-grow p-4" ref={parentRef}>
                         <svg width="100%" height="100%" id="map-svg">
-                            <HeatmapGroup
+                            <Heatmap
                                 hourGroupWidth={hourGroupWidth}
                                 plotData={plotData}
                                 colorScale={heatmapColorScale}
                                 widthScale={widthScale}
                                 rectWidth={rectWidth}
                             />
-                            <LineGraphGroup
+                            <LineAndBarGraph
                                 hourGroupWidth={hourGroupWidth}
                                 hourGroupHeight={hourGroupHeight}
                                 lineGraphWidth={lineGraphWidth}
@@ -73,7 +74,7 @@ export const Visualisation = () => {
                                 colorScale={heatmapColorScale}
                                 barWidth={rectWidth}
                             />
-                            {/* <BubbleGroup
+                            <BubbleGroup
                                 hourGroupWidth={hourGroupWidth}
                                 hourGroupHeight={hourGroupHeight}
                                 lineGraphWidth={lineGraphWidth}
@@ -82,7 +83,7 @@ export const Visualisation = () => {
                                 lineGraphYScale={lineGraphYScale}
                                 colorScale={heatmapColorScale}
                                 barWidth={rectWidth}
-                            /> */}
+                            />
                         </svg>
                     </div>
                 </div>

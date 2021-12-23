@@ -3,7 +3,10 @@ import { ScaleLinear, scaleLinear } from 'd3-scale';
 import { select } from 'd3-selection';
 import { line } from 'd3-shape';
 import React, { useEffect } from 'react';
-import { HourlyBarChart } from './HourlyBarChart/HourlyBarChart';
+import { HourGroup } from '../../shared/HourGroup/HourGroup';
+import { HourlyBars } from './HourlyBars/HourlyBars';
+import { HourlyLine } from './HourlyLine/HourlyLine';
+import { HourlyXAxis } from './HourlyXAxis/HourlyXAxis';
 
 interface Props {
     translateX: number;
@@ -18,7 +21,7 @@ interface Props {
     barWidth: number;
 }
 
-export const HourlyLineGraph = ({
+export const HourlyLinesAndBars = ({
     translateX,
     groupData,
     lineGraphWidth,
@@ -55,21 +58,19 @@ export const HourlyLineGraph = ({
     const groupColor = String(colorScale(avgValue));
 
     return (
-        <g transform={`translate(${translateX}, 0)`}>
-            <g id={`x-axis-${index}`} transform={`translate(0, ${lineGraphHeight})`} />
-            <HourlyBarChart
+        <HourGroup translateX={translateX}>
+            <HourlyXAxis index={index} lineGraphHeight={lineGraphHeight} />
+            <HourlyBars
                 translateX={translateX}
                 barData={barData}
                 barWidth={barWidth}
                 barYScale={barYScale}
                 lineGraphHeight={lineGraphHeight}
             />
-            <path
-                d={lineGenerator(groupData) as string}
-                fill="none"
-                stroke={groupColor}
-                className="stroke-1"
+            <HourlyLine
+                lineDAttribute={lineGenerator(groupData) as string}
+                groupColor={groupColor}
             />
-        </g>
+        </HourGroup>
     );
 };

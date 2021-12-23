@@ -4,7 +4,7 @@ import { Visualisation } from '../components/Visualisation/Visualisation';
 
 const Home: NextPage = () => {
     return (
-        <div className="bg-black w-full h-screen px-4">
+        <div className="bg-black w-full h-screen ">
             <Head>
                 <title>Space/Time</title>
                 <meta name="description" content="Sankey" />

@@ -3,7 +3,7 @@ import { ScaleLinear } from 'd3-scale';
 import { margin, nHoursPerDay, nMinPerHour } from '../utils/numbers';
 import { barData } from '../utils/data';
 import { getBarChartYScale } from '../utils/plot-utils';
-import { HourlyLineGraph } from '../LineGraphGroup/HourlyLineGraph/HourlyLineGraph';
+import { HourlyLinesAndBars } from '../LineAndBarGraph/HourlyLinesAndBars/HourlyLinesAndBars';
 
 interface Props {
     lineGraphHeight: number;
@@ -33,7 +33,7 @@ export const BubbleGroup = ({
             className="stroke-current text-header-gray stroke-2"
         >
             {[...Array(nHoursPerDay)].map((hour, i) => (
-                <HourlyLineGraph
+                <HourlyLinesAndBars
                     lineGraphWidth={lineGraphWidth}
                     lineGraphHeight={lineGraphHeight}
                     translateX={(hourGroupWidth * i) / 2}

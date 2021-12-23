@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScaleLinear } from 'd3-scale';
-import { HourGroup } from './HourGroup/HourGroup';
-import { margin, nHoursPerDay, nMinPerHour } from '../../utils/numbers';
+import { margin, nHoursPerDay, nMinPerHour } from '../utils/numbers';
+import { HourlyHeatmap } from './HourlyHeatMap/HourlyHeatmap';
 
 interface Props {
     hourGroupWidth: number;
@@ -11,17 +11,11 @@ interface Props {
     rectWidth: number;
 }
 
-export const HeatmapGroup = ({
-    hourGroupWidth,
-    plotData,
-    colorScale,
-    widthScale,
-    rectWidth,
-}: Props) => {
+export const Heatmap = ({ hourGroupWidth, plotData, colorScale, widthScale, rectWidth }: Props) => {
     return (
         <g>
             {[...Array(nHoursPerDay)].map((hour, i) => (
-                <HourGroup
+                <HourlyHeatmap
                     key={hourGroupWidth + Math.random()}
                     x={hourGroupWidth * i}
                     y={margin.top}

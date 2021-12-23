@@ -12,7 +12,7 @@ interface Props {
 }
 const offset = 2;
 
-export const HourlyBarChart = ({
+export const HourlyBars = ({
     translateX,
     barData,
     barYScale,

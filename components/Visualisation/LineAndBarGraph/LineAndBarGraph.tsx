@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScaleLinear } from 'd3-scale';
-import { HourlyLineGraph } from './HourlyLineGraph/HourlyLineGraph';
+import { HourlyLinesAndBars } from './HourlyLinesAndBars/HourlyLinesAndBars';
 import { margin, nHoursPerDay, nMinPerHour } from '../utils/numbers';
 import { barData } from '../utils/data';
 import { getBarChartYScale } from '../utils/plot-utils';
@@ -16,7 +16,7 @@ interface Props {
     barWidth: number;
 }
 
-export const LineGraphGroup = ({
+export const LineAndBarGraph = ({
     lineGraphHeight,
     lineGraphWidth,
     hourGroupWidth,
@@ -33,7 +33,7 @@ export const LineGraphGroup = ({
             className="stroke-current text-header-gray stroke-2"
         >
             {[...Array(nHoursPerDay)].map((hour, i) => (
-                <HourlyLineGraph
+                <HourlyLinesAndBars
                     lineGraphWidth={lineGraphWidth}
                     lineGraphHeight={lineGraphHeight}
                     translateX={(hourGroupWidth * i) / 2}
