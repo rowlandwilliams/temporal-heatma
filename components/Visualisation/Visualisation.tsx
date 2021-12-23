@@ -31,7 +31,6 @@ export const Visualisation = () => {
             window.addEventListener('resize', setResize);
             return () => window.removeEventListener('resize', setResize);
         }
-        return () => {};
     }, [parentRef, handleWindowResize]);
 
     useEffect(() => {
