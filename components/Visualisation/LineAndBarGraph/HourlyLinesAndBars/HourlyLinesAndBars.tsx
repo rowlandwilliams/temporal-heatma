@@ -1,9 +1,9 @@
 import { axisBottom } from 'd3-axis';
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import { select } from 'd3-selection';
 import { line } from 'd3-shape';
 import React, { useEffect } from 'react';
 import { HourGroup } from '../../shared/HourGroup/HourGroup';
+import { getXAxisSelection } from '../../utils/plot-utils';
 import { HourlyBars } from './HourlyBars/HourlyBars';
 import { HourlyLine } from './HourlyLine/HourlyLine';
 import { HourlyXAxis } from './HourlyXAxis/HourlyXAxis';
@@ -43,15 +43,15 @@ export const HourlyLinesAndBars = ({
         .defined((d) => d > 0);
 
     useEffect(() => {
-        const plotGraph = () => {
-            const axisGroup = select<SVGGElement, unknown>(`#x-axis-${index}`);
+        const plotGraph = (index: number) => {
+            const axisGroup = getXAxisSelection(index);
 
             const xAxis = axisBottom(xScale).ticks(0).tickSize(0);
 
             axisGroup.call(xAxis);
         };
 
-        plotGraph();
+        plotGraph(index);
     }, [groupData, index, lineGenerator, lineGraphWidth, lineGraphYScale, translateX, xScale]);
 
     const avgValue = groupData.reduce((a, b) => a + b, 0) / groupData.length;

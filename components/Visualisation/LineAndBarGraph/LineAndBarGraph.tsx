@@ -3,7 +3,6 @@ import { ScaleLinear } from 'd3-scale';
 import { HourlyLinesAndBars } from './HourlyLinesAndBars/HourlyLinesAndBars';
 import { margin, nHoursPerDay, nMinPerHour } from '../utils/numbers';
 import { barData } from '../utils/data';
-import { getBarChartYScale } from '../utils/plot-utils';
 
 interface Props {
     lineGraphHeight: number;
@@ -14,6 +13,7 @@ interface Props {
     lineGraphYScale: ScaleLinear<number, number, never>;
     colorScale: ScaleLinear<number, number, never>;
     barWidth: number;
+    barYScale: ScaleLinear<number, number, never>;
 }
 
 export const LineAndBarGraph = ({
@@ -25,8 +25,8 @@ export const LineAndBarGraph = ({
     lineGraphYScale,
     colorScale,
     barWidth,
+    barYScale,
 }: Props) => {
-    const barYScale = getBarChartYScale(lineGraphHeight);
     return (
         <g
             transform={`translate(0, ${hourGroupHeight + margin.top})`}

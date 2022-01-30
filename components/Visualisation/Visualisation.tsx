@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { debounce } from 'lodash';
 import {
-    heatmapColorScale,
+    allDataColorScale,
+    getBarChartYScale,
+    getBubbleRadiusScale,
     getHourGroupWidth,
     getLineGraphYScale,
     getWidthScale,
@@ -11,7 +13,7 @@ import { GraphHeader } from '../GraphHeader/GraphHeader';
 import { plotData } from './utils/data';
 import { Heatmap } from './HeatmapGroup/Heatmap';
 import { LineAndBarGraph } from './LineAndBarGraph/LineAndBarGraph';
-import { BubbleGroup } from './BubbleGroup/BubbleGroup';
+import { BubbleGraph } from './BubbleGra[h/BubbleGraph';
 
 export const Visualisation = () => {
     const parentRef = useRef<HTMLDivElement>(null);
@@ -38,12 +40,21 @@ export const Visualisation = () => {
         setIsLoaded(true);
     }, [width, height]);
 
-    const { hourGroupWidth, hourGroupHeight, lineGraphWidth, lineGraphHeight, rectWidth } =
-        getHourGroupWidth(width);
+    const {
+        hourGroupWidth,
+        hourGroupHeight,
+        lineGraphWidth,
+        lineGraphHeight,
+        bubbleHeight,
+        rectWidth,
+    } = getHourGroupWidth(width);
 
     const widthScale = getWidthScale(rectWidth);
 
-    const lineGraphYScale = getLineGraphYScale(lineGraphHeight);
+    const lineOrBubbleGraphYScale = getLineGraphYScale(lineGraphHeight);
+    const barYScale = getBarChartYScale(lineGraphHeight);
+    const bubbleYScale = getLineGraphYScale(bubbleHeight);
+    const bubbleRadiusScale = getBubbleRadiusScale();
 
     return (
         <>
@@ -60,7 +71,7 @@ export const Visualisation = () => {
                             <Heatmap
                                 hourGroupWidth={hourGroupWidth}
                                 plotData={plotData}
-                                colorScale={heatmapColorScale}
+                                colorScale={allDataColorScale}
                                 widthScale={widthScale}
                                 rectWidth={rectWidth}
                             />
@@ -70,19 +81,20 @@ export const Visualisation = () => {
                                 lineGraphWidth={lineGraphWidth}
                                 lineGraphHeight={lineGraphHeight}
                                 plotData={plotData}
-                                lineGraphYScale={lineGraphYScale}
-                                colorScale={heatmapColorScale}
+                                lineGraphYScale={lineOrBubbleGraphYScale}
+                                colorScale={allDataColorScale}
                                 barWidth={rectWidth}
+                                barYScale={barYScale}
                             />
-                            <BubbleGroup
+                            <BubbleGraph
                                 hourGroupWidth={hourGroupWidth}
                                 hourGroupHeight={hourGroupHeight}
                                 lineGraphWidth={lineGraphWidth}
-                                lineGraphHeight={lineGraphHeight}
+                                lineGraphHeight={bubbleHeight}
                                 plotData={plotData}
-                                lineGraphYScale={lineGraphYScale}
-                                colorScale={heatmapColorScale}
-                                barWidth={rectWidth}
+                                bubbleGraphYScale={bubbleYScale}
+                                colorScale={allDataColorScale}
+                                radiusScale={bubbleRadiusScale}
                             />
                         </svg>
                     </div>
